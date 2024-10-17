@@ -1,12 +1,19 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Interaction with FOundation Models</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Chat with ChatGPT</h1>
+<h1>Welcome to SAP AI Core</h1>
+
+
+
 <form action="#" th:action="@{/message}" th:object="${message}" method="post">
+    <label for="foundationmodels">Select a foundation model:</label>
+    <select id="foundationmodels" name="foundationmodels" th:field="*{foundationmodel}">
+        <option th:each="foundationmodel: ${FoundationModels}" th:value="${foundationmodel}" th:text="${foundationmodel}"></option>
+    </select>
 
     <!--<p>Id: <input type="text" th:field="*{id}" /></p>-->
     <p>Message: <input type="text" th:field="*{content}" /></p>

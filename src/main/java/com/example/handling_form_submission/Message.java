@@ -4,6 +4,15 @@ public class Message {
 
     private long id;
     private String content;
+    private String foundationmodel;
+
+    public String getFoundationmodel() {
+        return foundationmodel;
+    }
+
+    public void setFoundationmodel(String foundationmodel) {
+        this.foundationmodel = foundationmodel;
+    }
 
     public long getId() {
         return id;
