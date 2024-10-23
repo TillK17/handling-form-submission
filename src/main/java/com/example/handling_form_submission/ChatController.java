@@ -1,6 +1,7 @@
 package com.example.handling_form_submission;
 
 import com.sap.ai.sdk.core.client.ScenarioApi;
+import com.sap.ai.sdk.core.client.model.AiModelBaseData;
 import com.sap.ai.sdk.foundationmodels.openai.OpenAiClient;
 import com.sap.ai.sdk.foundationmodels.openai.OpenAiModel;
 import com.sap.ai.sdk.foundationmodels.openai.model.OpenAiChatCompletionOutput;
@@ -21,12 +22,12 @@ public class ChatController {
 
   @GetMapping("/message")
   public String messageForm(Model model) {
-    List<String> FoundationModels =
+    List<String> foundationModels =
         API.queryModels("foundation-models", "default").getResources().stream()
-            .map(mod -> mod.getModel())
+            .map(AiModelBaseData::getModel)
             .collect(Collectors.toList());
 
-    model.addAttribute("FoundationModels", FoundationModels);
+    model.addAttribute("foundationModels", foundationModels);
     model.addAttribute("message", new Message());
 
     return "message";
@@ -35,11 +36,12 @@ public class ChatController {
   @PostMapping("/message")
   public String messageSubmit(@ModelAttribute Message text) {
 
-    OpenAiModel foundationmodel = new OpenAiModel(text.getFoundationmodel());
-    OpenAiClient Client = OpenAiClient.forModel(foundationmodel);
+    OpenAiModel foundationModel = new OpenAiModel(text.getFoundationmodel());
+    OpenAiClient client = OpenAiClient.forModel(foundationModel);
+
 
     OpenAiChatCompletionOutput result =
-        Client.withSystemPrompt("You are a helpful AI").chatCompletion(text.getContent());
+        client.withSystemPrompt("You are a helpful AI").chatCompletion(text.getContent());
 
     String resultMessage = result.getContent();
 

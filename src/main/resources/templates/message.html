@@ -12,7 +12,7 @@
 <form action="#" th:action="@{/message}" th:object="${message}" method="post">
     <label for="foundationmodels">Select a foundation model:</label>
     <select id="foundationmodels" name="foundationmodels" th:field="*{foundationmodel}">
-        <option th:each="foundationmodel: ${FoundationModels}" th:value="${foundationmodel}" th:text="${foundationmodel}"></option>
+        <option th:each="foundationmodel: ${foundationModels}" th:value="${foundationmodel}" th:text="${foundationmodel}"></option>
     </select>
 
     <!--<p>Id: <input type="text" th:field="*{id}" /></p>-->
